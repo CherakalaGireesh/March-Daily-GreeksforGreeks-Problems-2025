@@ -30,30 +30,22 @@ class GFG
 class Solution {
     public int[] AllPrimeFactors(int N) {
         List<Integer> al = new ArrayList<>();
-        for (int i = 2; i <= Math.sqrt(N); i++) {
+        for (int i = 2; i * i <= N ; i++) {
             if (N % i == 0) {
-                if (isPrime(i)) al.add(i);
-                int comp = N / i;
-                if (comp != i && isPrime(comp)) al.add(comp);
+                al.add(i);
+                
+                while(N % i == 0) 
+                    N /= i;
             }
         }
-        if (al.isEmpty() && isPrime(N)) {
-            al.add(N);
-        }
+        if (N != 1) al.add(N);
+        
+        Collections.sort(al);
         int[] result = new int[al.size()];
         for (int i = 0; i < al.size(); i++) {
             result[i] = al.get(i);
         }
-        Arrays.sort(result);
         return result;
-    }
-    
-    public boolean isPrime(int num) {
-        if (num < 2) return false;
-        for (int i = 2; i <= Math.sqrt(num); i++) {
-            if (num % i == 0) return false;
-        }
-        return true;
     }
 }
 
