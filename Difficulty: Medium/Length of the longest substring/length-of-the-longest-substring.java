@@ -28,14 +28,15 @@ class Solution {
         int len = s.length();
         int left = 0, right = 0, maxLen = 0;
         int hash[] = new int[256];
+        Arrays.fill(hash, -1);
         
         while(right < len){
-            if(hash[s.charAt(right)] > 0 && hash[s.charAt(right)] >= left){
-                left = hash[s.charAt(right)];
+            if(hash[s.charAt(right)] != -1 && hash[s.charAt(right)] >= left){
+                left = hash[s.charAt(right)] + 1;
             }
             
             maxLen = Math.max(maxLen, right - left + 1);
-            hash[s.charAt(right)] = right + 1;
+            hash[s.charAt(right)] = right;
             right++;
         }
         
